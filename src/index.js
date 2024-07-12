@@ -1,3 +1,4 @@
+const dotenv = require("dotenv").config(); // Load the .env file.
 const { REST } = require("@discordjs/rest"); // Define REST.
 const { Routes } = require("discord-api-types/v9"); // Define Routes.
 const fs = require("fs"); // Define fs (file system).
@@ -12,7 +13,7 @@ const token = process.env.DISCORD_TOKEN; // Token from Railway Env Variable.
 client.once("ready", () => {
   const commandFiles = fs
     .readdirSync("src/Commands")
-    .filter(file => file.endsWith(".js")); // Get and filter all the files in the "Commands" Folder.
+    .filter((file) => file.endsWith(".js")); // Get and filter all the files in the "Commands" Folder.
 
   // Loop through the command files
   for (const file of commandFiles) {
@@ -23,7 +24,7 @@ client.once("ready", () => {
 
   const rest = new REST({ version: "9" }).setToken(token); // Define "rest" for use in registering commands
   // Register slash commands.
-  ;(async () => {
+  (async () => {
     try {
       console.log("Started refreshing application (/) commands.");
 
@@ -39,7 +40,7 @@ client.once("ready", () => {
   console.log(`Logged in as ${client.user.tag}!`);
 });
 // Command handler.
-client.on("interactionCreate", async interaction => {
+client.on("interactionCreate", async (interaction) => {
   if (!interaction.isCommand()) return;
 
   const command = commands.get(interaction.commandName);
